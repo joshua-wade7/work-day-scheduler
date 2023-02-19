@@ -1,0 +1,34 @@
+GIVEN I am using a daily planner to create a schedule
+WHEN I open the planner
+THEN the current day is displayed at the top of the calendar
+WHEN I scroll down
+THEN I am presented with time blocks for standard business hours
+WHEN I view the time blocks for that day
+THEN each time block is color-coded to indicate whether it is in the past, present, or future
+WHEN I click into a time block
+THEN I can enter an event
+WHEN I click the save button for that time block
+THEN the text for that event is saved in local storage
+WHEN I refresh the page
+THEN the saved events persist
+
+
+// Want to apply the date to the current day id in the DOM (it is a 'p' element) - complete
+
+//Add the rest of the time blocks in the HTML. - complete
+
+// Need to add create a reference to all of the time blocks so that corresponding color is displayed based on the time of day (gray for past time blocks, red for current, green for upcoming).
+
+//create a function that will capture the values placed within the timeblocks.
+//Within that function, add the values placed in the timeblocks to localStorage (this will also include calling the readEventsFromStorage function that will be equal to a variable we will create called 'events') - reference mini-project 5 solved file.
+
+
+
+
+//
+
+//Need to add an event listener to the events within the time blocks to enable users to enter information there.  Need to capture those values so they can be stored in localStorage.
+
+// Need to add an event listener to the save button so that each value typed in the  input within a time block can be stored in localStorage. Remember to use jQuery syntax
+
+// Need to setItems in localStorage.
