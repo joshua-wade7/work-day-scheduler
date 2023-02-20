@@ -6,7 +6,7 @@
 var userInputEl = $(".description"); //will use for capturing the value the user inputs into the time blocks
 var displayDate = $("#currentDay"); //used for displaying the date in the header
 var saveButton = $(".saveBtn");
-
+var events;
 // function currentDate() {
 //   displayDate.text(dayjs().format("dddd MMM, DD"));
 // }
@@ -34,35 +34,66 @@ var saveButton = $(".saveBtn");
 // });
 
 function currentDate() {
-  displayDate.text(dayjs().format("dddd MMM, DD"));
+  var currentTime = dayjs().format("dddd MMM, DD");
+  displayDate.text(currentTime);
 }
 //once the function to handle the submission of an event is complete, it will call this function to take the event saved and turn it into a JSON object so localStorage can display it.
 
 function readEventsFromStorage() {
-  var events = localStorage.getItem("events");
+  //call on page load
+  var tempEvents = localStorage.getItem("events");
+  if (tempEvents) {
+    events = JSON.parse(tempEvents);
+  } else {
+    events = {};
+  }
   //need to add code that will 'parse' the item from local storage back into a js object that the user can read.
 }
 
-function saveEventsToStorage(events) {
+function saveEventsToStorage() {
   localStorage.setItem("events", JSON.stringify(events));
 }
 
 function printEventData() {
-  userInputEl = empty();
-  var events = readEventsFromStorage();
+  // userInputEl = empty();
+  // var events = readEventsFromStorage();
+  //
+  //determine hour of the day (9-17)
+  //figure out what current hour you are in
+  for (var i = 9; i < 18; i++);
+  {
+    $("#hour-" + i).addClass();
+  }
+  //within for loop, if statement
+  //loop through our html blocks
+  //in the loop, determine if the block is past, present, or future and apply the class.
+  //populate textarea from events variable.
 }
 
-function handleEventsSubmit(event) {
-  event.preventDefault();
-  //input code to capture values user inputs in the time blocks
-  //at bottom of function, set up code to add event to localStorage, print the event to the page, and clear the value once event is complete(?).
-}
+// function handleEventDelete() {
+//   //I don't believe this is needed but want to ask before writing it off.
+// }
+
+// function handleEventsSubmit(event) { //Unnecessary because of the saveButton event listener.
+//   event.preventDefault();
+//   //input code to capture values user inputs in the time blocks
+//   var userInput = userInputEl.val().trim();
+//   // how do we target the specific id's in the dom for each time block, to capture just that time-blocks value when save button is clicked?
+//   //at bottom of function, set up code to add event to localStorage, print the event to the page, and clear the value once event is complete(?).
+// }
 
 saveButton.click(function (event) {
-  //need to change this to saveButton.on("click", (function name)) once the function to capture the values (.val()) is created.
+  //need to change this to saveButton.on("click", handleEventSubmit) once the function to capture the values (.val()) is created.
   event.preventDefault();
-  alert("it works");
+  var timeEl = $(event.target).attr("data-time");
+  var textArea = $("#" + timeEl).val();
+  events[timeEl] = textArea;
+  saveEventsToStorage();
+  // console.log(textArea);
+  // alert("it works");
 });
 
 saveButton.on("click");
+readEventsFromStorage();
 currentDate();
+// printEventData();
