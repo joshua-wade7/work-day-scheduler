@@ -7,6 +7,7 @@ var userInputEl = $(".description"); //will use for capturing the value the user
 var displayDate = $("#currentDay"); //used for displaying the date in the header
 var saveButton = $(".saveBtn");
 var events;
+var timeBlockEl = $(".time-block");
 // function currentDate() {
 //   displayDate.text(dayjs().format("dddd MMM, DD"));
 // }
@@ -60,19 +61,33 @@ function printEventData() {
   //
   //determine hour of the day (9-17)
   //figure out what current hour you are in
-  for (var i = 9; i < 18; i++);
-  {
-    $("#hour-" + i).addClass();
+  for (var i = 9; i < 18; i++) {
+    var time = $("#hour-" + i);
+    // console.log(time);
+    var hour = dayjs().hour();
+    var current = time.attr("id").split("-")[1];
+    console.log(current);
+    if (current == hour) {
+      time.addClass("present");
+      time.removeClass("future");
+      time.removeClass("past");
+    } else if (current < hour) {
+      time.addClass("past");
+      time.removeClass("future");
+      time.removeClass("present");
+    } else if (current > hour) {
+      time.addClass("future");
+      time.removeClass("past");
+      time.removeClass("present");
+    }
+    var savedText = localStorage.getItem("events"); //can't get this to work and unsure why.
+    $(time.children()[1]).val(savedText);
   }
-  //within for loop, if statement
+  //within for loop, if statement to specify if past is true, present, is true or future is true - allow present to be in the else statement, and future be in the else if statement.
   //loop through our html blocks
   //in the loop, determine if the block is past, present, or future and apply the class.
-  //populate textarea from events variable.
+  //populate textarea from events variable. - how to do this?
 }
-
-// function handleEventDelete() {
-//   //I don't believe this is needed but want to ask before writing it off.
-// }
 
 // function handleEventsSubmit(event) { //Unnecessary because of the saveButton event listener.
 //   event.preventDefault();
@@ -93,7 +108,7 @@ saveButton.click(function (event) {
   // alert("it works");
 });
 
-saveButton.on("click");
+// saveButton.on("click");
 readEventsFromStorage();
 currentDate();
-// printEventData();
+printEventData(); //Remember to comment back in before submitting Homework.
